@@ -1,0 +1,255 @@
+<transformation>
+  <info>
+    <name>DWH_Schema_Build</name>
+    <description/>
+    <extended_description/>
+    <trans_version/>
+    <trans_type>Normal</trans_type>
+    <trans_status>0</trans_status>
+    <directory>&#x2f;INITIAL_Load</directory>
+    <parameters>
+    </parameters>
+    <log>
+<trans-log-table><connection/>
+<schema/>
+<table/>
+<size_limit_lines/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STATUS</id><enabled>Y</enabled><name>STATUS</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name><subject/></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name><subject/></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name><subject/></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name><subject/></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name><subject/></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name><subject/></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>STARTDATE</id><enabled>Y</enabled><name>STARTDATE</name></field><field><id>ENDDATE</id><enabled>Y</enabled><name>ENDDATE</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>DEPDATE</id><enabled>Y</enabled><name>DEPDATE</name></field><field><id>REPLAYDATE</id><enabled>Y</enabled><name>REPLAYDATE</name></field><field><id>LOG_FIELD</id><enabled>Y</enabled><name>LOG_FIELD</name></field><field><id>EXECUTING_SERVER</id><enabled>N</enabled><name>EXECUTING_SERVER</name></field><field><id>EXECUTING_USER</id><enabled>N</enabled><name>EXECUTING_USER</name></field><field><id>CLIENT</id><enabled>N</enabled><name>CLIENT</name></field></trans-log-table>
+<perf-log-table><connection/>
+<schema/>
+<table/>
+<interval/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>SEQ_NR</id><enabled>Y</enabled><name>SEQ_NR</name></field><field><id>LOGDATE</id><enabled>Y</enabled><name>LOGDATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>INPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>INPUT_BUFFER_ROWS</name></field><field><id>OUTPUT_BUFFER_ROWS</id><enabled>Y</enabled><name>OUTPUT_BUFFER_ROWS</name></field></perf-log-table>
+<channel-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>LOGGING_OBJECT_TYPE</id><enabled>Y</enabled><name>LOGGING_OBJECT_TYPE</name></field><field><id>OBJECT_NAME</id><enabled>Y</enabled><name>OBJECT_NAME</name></field><field><id>OBJECT_COPY</id><enabled>Y</enabled><name>OBJECT_COPY</name></field><field><id>REPOSITORY_DIRECTORY</id><enabled>Y</enabled><name>REPOSITORY_DIRECTORY</name></field><field><id>FILENAME</id><enabled>Y</enabled><name>FILENAME</name></field><field><id>OBJECT_ID</id><enabled>Y</enabled><name>OBJECT_ID</name></field><field><id>OBJECT_REVISION</id><enabled>Y</enabled><name>OBJECT_REVISION</name></field><field><id>PARENT_CHANNEL_ID</id><enabled>Y</enabled><name>PARENT_CHANNEL_ID</name></field><field><id>ROOT_CHANNEL_ID</id><enabled>Y</enabled><name>ROOT_CHANNEL_ID</name></field></channel-log-table>
+<step-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>TRANSNAME</id><enabled>Y</enabled><name>TRANSNAME</name></field><field><id>STEPNAME</id><enabled>Y</enabled><name>STEPNAME</name></field><field><id>STEP_COPY</id><enabled>Y</enabled><name>STEP_COPY</name></field><field><id>LINES_READ</id><enabled>Y</enabled><name>LINES_READ</name></field><field><id>LINES_WRITTEN</id><enabled>Y</enabled><name>LINES_WRITTEN</name></field><field><id>LINES_UPDATED</id><enabled>Y</enabled><name>LINES_UPDATED</name></field><field><id>LINES_INPUT</id><enabled>Y</enabled><name>LINES_INPUT</name></field><field><id>LINES_OUTPUT</id><enabled>Y</enabled><name>LINES_OUTPUT</name></field><field><id>LINES_REJECTED</id><enabled>Y</enabled><name>LINES_REJECTED</name></field><field><id>ERRORS</id><enabled>Y</enabled><name>ERRORS</name></field><field><id>LOG_FIELD</id><enabled>N</enabled><name>LOG_FIELD</name></field></step-log-table>
+<metrics-log-table><connection/>
+<schema/>
+<table/>
+<timeout_days/>
+<field><id>ID_BATCH</id><enabled>Y</enabled><name>ID_BATCH</name></field><field><id>CHANNEL_ID</id><enabled>Y</enabled><name>CHANNEL_ID</name></field><field><id>LOG_DATE</id><enabled>Y</enabled><name>LOG_DATE</name></field><field><id>METRICS_DATE</id><enabled>Y</enabled><name>METRICS_DATE</name></field><field><id>METRICS_CODE</id><enabled>Y</enabled><name>METRICS_CODE</name></field><field><id>METRICS_DESCRIPTION</id><enabled>Y</enabled><name>METRICS_DESCRIPTION</name></field><field><id>METRICS_SUBJECT</id><enabled>Y</enabled><name>METRICS_SUBJECT</name></field><field><id>METRICS_TYPE</id><enabled>Y</enabled><name>METRICS_TYPE</name></field><field><id>METRICS_VALUE</id><enabled>Y</enabled><name>METRICS_VALUE</name></field></metrics-log-table>
+    </log>
+    <maxdate>
+      <connection/>
+      <table/>
+      <field/>
+      <offset>0.0</offset>
+      <maxdiff>0.0</maxdiff>
+    </maxdate>
+    <size_rowset>10000</size_rowset>
+    <sleep_time_empty>50</sleep_time_empty>
+    <sleep_time_full>50</sleep_time_full>
+    <unique_connections>N</unique_connections>
+    <feedback_shown>Y</feedback_shown>
+    <feedback_size>50000</feedback_size>
+    <using_thread_priorities>Y</using_thread_priorities>
+    <shared_objects_file/>
+    <capture_step_performance>N</capture_step_performance>
+    <step_performance_capturing_delay>1000</step_performance_capturing_delay>
+    <step_performance_capturing_size_limit>100</step_performance_capturing_size_limit>
+    <dependencies>
+    </dependencies>
+    <partitionschemas>
+    </partitionschemas>
+    <slaveservers>
+    </slaveservers>
+    <clusterschemas>
+    </clusterschemas>
+  <created_user>-</created_user>
+  <created_date>2018&#x2f;08&#x2f;25 11&#x3a;12&#x3a;23.424</created_date>
+  <modified_user>-</modified_user>
+  <modified_date>2018&#x2f;08&#x2f;26 22&#x3a;01&#x3a;02.147</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
+    <is_key_private>N</is_key_private>
+  </info>
+  <notepads>
+  </notepads>
+  <connection>
+    <name>FE_DWH</name>
+    <server>&#x24;&#x7b;FE_TARGET_SERVER&#x7d;</server>
+    <type>MYSQL</type>
+    <access>Native</access>
+    <database>&#x24;&#x7b;FE_TARGET_DATABASE&#x7d;</database>
+    <port>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</port>
+    <username>&#x24;&#x7b;FE_TARGET_USERNAME&#x7d;</username>
+    <password>&#x24;&#x7b;FE_TARGET_PASSWORD&#x7d;</password>
+    <servername/>
+    <data_tablespace/>
+    <index_tablespace/>
+    <attributes>
+      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
+      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</attribute></attribute>
+      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
+      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
+      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
+      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
+    </attributes>
+  </connection>
+  <order>
+  <hop> <from>Generate Rows</from><to>Get Variables</to><enabled>Y</enabled> </hop>
+  <hop> <from>Get Variables</from><to>Filter rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Build DWH</to><enabled>Y</enabled> </hop>
+  <hop> <from>Filter rows</from><to>Dummy</to><enabled>Y</enabled> </hop>
+  </order>
+  <step>
+    <name>Build DWH</name>
+    <type>ExecSQL</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>FE_DWH</connection>
+    <execute_each_row>Y</execute_each_row>
+    <single_statement>N</single_statement>
+    <replace_variables>N</replace_variables>
+    <quoteString>N</quoteString>
+    <sql>-- &#x23;&#x23;&#x23;&#x23; -- DROPping Existing Database If its available in the foodengine_dwh name&#xd;&#xa;-- &#x23;&#x23;&#x23;&#x23; This script to be used for new customer environmental set-up &#xd;&#xa;-- &#x23;&#x23;&#x23;&#x23; By Running this script, we will lose all existing data&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;-- DROP DATABASE IF EXISTS foodengine_dwh &#x3b;&#xd;&#xa;CREATE DATABASE IF NOT EXISTS foodengine_dwh&#x3b;&#xd;&#xa;&#xd;&#xa;USE foodengine_dwh&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS fact_orderdetail&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS fact_orderdetail&#x28;&#xd;&#xa;ProcessId INT&#x28;11&#x29;	NOT NULL AUTO_INCREMENT &#xd;&#xa;,ProcessDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP &#xd;&#xa;,BranchId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0  COMMENT &#x27;Id of dim_branch table&#x27;&#xd;&#xa;,OrderId BIGINT&#x28;11&#x29; NOT NULL	DEFAULT 0 COMMENT &#x27;source table order transaction id&#x27;&#xd;&#xa;,OrderSummaryId BIGINT&#x28;11&#x29; NOT NULL	DEFAULT 0 COMMENT &#x27;source table order summary transaction id&#x27;&#xd;&#xa;,CustomerId INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0  COMMENT &#x27;Id of dim_customer table&#x27;&#xd;&#xa;,OrderTypeId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0  COMMENT &#x27;Id of dDim_ordertype table&#x27;&#xd;&#xa;,OnlinerefId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0  COMMENT &#x27;Id of dim_onlinereferal table&#x27;&#xd;&#xa;,FloorId	INT&#x28;11&#x29; NOT NULL DEFAULT 0  COMMENT &#x27;Id of dim_tablefloor table&#x27;&#xd;&#xa;,TableId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0 COMMENT &#x27;Id of dim_tablefloor table&#x27;&#xd;&#xa;,DepartmentId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0   COMMENT &#x27;Id of dim_department table&#x27;&#xd;&#xa;,MenuId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0      COMMENT &#x27;Id of dim_menuitem table&#x27;&#xd;&#xa;,CaptainId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0     COMMENT &#x27;Id of dim_waiter table&#x27;&#xd;&#xa;,WaiterId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0		COMMENT &#x27;Id of dim_waiter table&#x27;&#xd;&#xa;,OrderStatusId INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0 COMMENT &#x27;Id of dim_orderstatus table&#x27; &#xd;&#xa;,DiscountTypeId SMALLINT&#x28;2&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of dim_discounttype table&#x27;&#xd;&#xa;,ComplimentaryStatusId SMALLINT&#x28;1&#x29; DEFAULT 0 COMMENT &#x27;Id of dim_complimentary table&#x27;&#xd;&#xa;,SplitTypeId  SMALLINT&#x28;1&#x29; DEFAULT 0 COMMENT &#x27;Id of dim_splittype table&#x27;&#xd;&#xa;,PaymodeId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0  COMMENT &#x27;Id of dim_paymode table&#x27; &#xd;&#xa;,CardTypeId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0 COMMENT &#x27;Id of dim_cardtype table&#x27;&#xd;&#xa;,BillTimeId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0&#xd;&#xa;,CreateDateId	INT&#x28;11&#x29;	NOT NULL 	DEFAULT 	0&#xd;&#xa;,CreateDate	TIMESTAMP NOT NULL DEFAULT &#x27;0000-00-00 00&#x3a;00&#x3a;00&#x27;		&#xd;&#xa;,NoOfPpl INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,Itemprice DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ItemQty DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,OrderPrice DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,DiscPer DECIMAL&#x28;5,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,DiscPrice DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ServiceTax DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ServChargeTax DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ParcelCharge DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,TaxAmount DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,SalesAmount DECIMAL&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;ProcessId&#x29;&#xd;&#xa;,UNIQUE KEY uniq_order &#x28;OrderId,OrderSummaryId,BranchId&#x29;&#xd;&#xa;,KEY idx_BranchId &#x28;BranchId&#x29;&#xd;&#xa;,KEY idx_OrderId &#x28;OrderId&#x29;&#xd;&#xa;,KEY idx_CustomerId &#x28;CustomerId&#x29;&#xd;&#xa;,KEY idx_OrderTypeId &#x28;OrderTypeId&#x29;&#xd;&#xa;,KEY idx_OnlinerefId &#x28;OnlinerefId&#x29;&#xd;&#xa;,KEY idx_FloorId &#x28;FloorId&#x29;&#xd;&#xa;,KEY idx_TableId &#x28;TableId&#x29;&#xd;&#xa;,KEY idx_Department_Id &#x28;DepartmentId&#x29;&#xd;&#xa;,KEY idx_MenuId &#x28;MenuId&#x29;&#xd;&#xa;,KEY idx_CaptainId &#x28;CaptainId&#x29;&#xd;&#xa;,KEY idx_WaiterId &#x28;WaiterId&#x29;&#xd;&#xa;,KEY idx_OrderStatusId &#x28;OrderStatusId&#x29;&#xd;&#xa;,KEY idx_DiscountTypeId &#x28;DiscountTypeId&#x29;&#xd;&#xa;,KEY idx_ComplimentaryStatus_Id &#x28;ComplimentaryStatusId&#x29;&#xd;&#xa;,KEY idx_SplitTypeId &#x28;SplitTypeId&#x29;&#xd;&#xa;,KEY idx_PaymodeId &#x28;PaymodeId&#x29;&#xd;&#xa;,KEY idx_CardTypeId &#x28;CardTypeId&#x29;&#xd;&#xa;,KEY idx_BillTimeId &#x28;BillTimeId&#x29;&#xd;&#xa;,KEY idx_CreatedateId &#x28;CreatedateId&#x29;&#xd;&#xa;,KEY idx_CreateDate &#x28;CreateDate&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_ordertype&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_ordertype &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,OrderTypeCode varchar&#x28;3&#x29; DEFAULT NULL&#xd;&#xa;,OrderTypeDesc varchar&#x28;20&#x29; DEFAULT NULL&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_ordertype &#x28;OrderTypeCode&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_branch&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_branch &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,RestCode int&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;RestId from source branch master table&#x27;&#xd;&#xa;,BranchCode varchar&#x28;11&#x29; NOT NULL DEFAULT &#x27;&#x27; COMMENT &#x27;BranchId from source branch master table&#x27;&#xd;&#xa;,BranchName  varchar&#x28;30&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,CreatedDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP&#xd;&#xa;,LocationId INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_branch &#x28;RestCode,BranchCode&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_combotype&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_combotype &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,ComboCode char&#x28;1&#x29; NOT NULL &#xd;&#xa;,ComboDesc varchar&#x28;10&#x29; NOT NULL &#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_combo &#x28;comboCode&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_department&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_department &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,DeptID int&#x28;11&#x29; NOT NULL&#xd;&#xa;,DeptName varchar&#x28;100&#x29; COLLATE utf8_bin NOT NULL&#xd;&#xa;,NoofItems int&#x28;11&#x29; NOT NULL&#xd;&#xa;,KotTitle varchar&#x28;100&#x29; COLLATE utf8_bin DEFAULT &#x27;Kitchen Copy&#x27;&#xd;&#xa;,CreatedDate timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP&#xd;&#xa;,Createdby int&#x28;11&#x29; DEFAULT NULL&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_department &#x28;BranchId,DeptID&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_menuitem&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_menuitem &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,MenuId VARCHAR&#x28;15&#x29; CHARACTER SET latin1 NOT NULL&#xd;&#xa;,MenuCode VARCHAR&#x28;30&#x29; CHARACTER SET latin1 DEFAULT NULL&#xd;&#xa;,Name VARCHAR&#x28;255&#x29; CHARACTER SET latin1 DEFAULT NULL&#xd;&#xa;,Price decimal&#x28;6,2&#x29; NOT NULL DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,AcPrice decimal&#x28;6,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ParcelPrice decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,RoomPrice decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,ItemLevel VARCHAR&#x28;15&#x29; CHARACTER SET latin1 NOT NULL &#xd;&#xa;,ItemParent VARCHAR&#x28;15&#x29; CHARACTER SET latin1&#xd;&#xa;,ItemStatus VARCHAR&#x28;10&#x29; CHARACTER SET latin1 NOT NULL DEFAULT &#x27;Actie&#x27; &#xd;&#xa;,ItemHide VARCHAR&#x28;10&#x29; CHARACTER SET latin1 DEFAULT &#x27;Actie&#x27; &#xd;&#xa;,DisplayOrder INT&#x28;2&#x29; DEFAULT NULL&#xd;&#xa;,DeptPrint CHAR&#x28;1&#x29; CHARACTER SET latin1 DEFAULT &#x27;N&#x27;&#xd;&#xa;,DepartmentID INT&#x28;11&#x29; DEFAULT &#x27;0&#x27; COMMENT &#x27;Id of Dim_Department table&#x27;&#xd;&#xa;,RewardPoints decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,LockType CHAR&#x28;10&#x29; CHARACTER SET latin1 DEFAULT &#x27;Temporary&#x27; &#xd;&#xa;,ItemType CHAR&#x28;10&#x29; CHARACTER SET latin1 DEFAULT NULL&#xd;&#xa;,CreatedDateId INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,CreatedDate TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP&#xd;&#xa;,LastUpdated TIMESTAMP NULL DEFAULT &#x27;0000-00-00 00&#x3a;00&#x3a;00&#x27;&#xd;&#xa;,ComboTypeId INT&#x28;4&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of combotype dim table&#x27;&#xd;&#xa;,DineInTax int&#x28;11&#x29; NOT NULL DEFAULT &#x27;0&#x27;&#xd;&#xa;,TAwayTax int&#x28;11&#x29; NOT NULL DEFAULT &#x27;0&#x27;&#xd;&#xa;,DelivTax int&#x28;11&#x29; NOT NULL DEFAULT &#x27;0&#x27;&#xd;&#xa;,kotitemname varchar&#x28;100&#x29; DEFAULT NULL&#xd;&#xa;,DeliveryPrice decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,TaxItem char&#x28;1&#x29; CHARACTER SET latin1 DEFAULT &#x27;Y&#x27;&#xd;&#xa;,AcDineInTax int&#x28;11&#x29; NOT NULL DEFAULT &#x27;0&#x27;&#xd;&#xa;,NonAcDineInTax int&#x28;11&#x29; DEFAULT &#x27;0&#x27;&#xd;&#xa;,RoomServTax int&#x28;11&#x29; DEFAULT &#x27;0&#x27;&#xd;&#xa;,RegionID int&#x28;11&#x29; DEFAULT &#x27;0&#x27;&#xd;&#xa;,MenuType char&#x28;1&#x29; CHARACTER SET latin1 DEFAULT &#x27;L&#x27;&#xd;&#xa;,HappyPrice decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,HappyAcPrice decimal&#x28;10,2&#x29; DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_menu &#x28;BranchId,MenuId&#x29;&#xd;&#xa;,KEY idx_ComboTypeId &#x28;ComboTypeId&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_waiter&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_waiter &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,EmpCode varchar&#x28;30&#x29; NOT NULL&#xd;&#xa;,WaiterName varchar&#x28;30&#x29; DEFAULT NULL&#xd;&#xa;,EmpType char&#x28;1&#x29; DEFAULT NULL COMMENT &#x27;E- Employee,C- Captain, W- Waiter&#x27;&#xd;&#xa;,EmpStatus char&#x28;1&#x29; DEFAULT &#x27;A&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_waiter &#x28;BranchId,EmpCode&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_customer&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_customer &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,CustMobile	VARCHAR&#x28;15&#x29;	COLLATE utf8_bin NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,RedeemPoints	INT&#x28;11&#x29;	NOT NULL DEFAULT 0&#xd;&#xa;,CustomerName	VARCHAR&#x28;200&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,CustomerAddr	TEXT	&#xd;&#xa;,CustomerPhone	VARCHAR&#x28;15&#x29;	NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,CustomerEmail	VARCHAR&#x28;60&#x29;	NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,LandMark	VARCHAR&#x28;255&#x29; NOT NULL DEFAULT &#x27;&#x27;	&#xd;&#xa;,Type	CHAR&#x28;1&#x29;	NOT NULL DEFAULT &#x27;C&#x27;&#xd;&#xa;,Area	VARCHAR&#x28;30&#x29;	 NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,CreateDate	TIMESTAMP  NOT NULL DEFAULT CURRENT_TIMESTAMP		&#xd;&#xa;,DOB	VARCHAR&#x28;15&#x29;	NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,MarriageDate	VARCHAR&#x28;11&#x29;	NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,MarriageStatus	CHAR&#x28;2&#x29;	NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,RecAmount	DECIMAL&#x28;10,2&#x29; NOT NULL DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,UpdatedDate	TIMESTAMP NOT NULL DEFAULT &#x27;0000-00-00 00&#x3a;00&#x3a;00&#x27;&#xd;&#xa;,CustVisitCnt	INT&#x28;11&#x29;	NOT NULL DEFAULT &#x27;0&#x27;&#xd;&#xa;,CustomerID	INT&#x28;11&#x29;	NOT NULL DEFAULT 0&#xd;&#xa;,PayStatus	CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;A&#x27;	&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_customer &#x28;BranchId,CustMobile,Type&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_paymode&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_paymode &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,PayMstrID	INT&#x28;11&#x29;	NOT NULL DEFAULT 0&#xd;&#xa;,PaymodeID	INT&#x28;10&#x29;	NOT NULL DEFAULT 0&#xd;&#xa;,Descr	VARCHAR&#x28;100&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,Status	VARCHAR&#x28;2&#x29; NOT NULL DEFAULT &#x27;N&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_paymode &#x28;BranchId,PaymodeID&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_orderstatus&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_orderstatus &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,OrderstatusCode  VARCHAR&#x28;2&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,OrderStatus VARCHAR&#x28;30&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,StatusType CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;&#x27; COMMENT &#x27;U - USER, A - ADMIN, B - BOTH&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_orderstatus &#x28;BranchId,OrderstatusCode&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_cardtype&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_cardtype &#x28;&#xd;&#xa;Id INT&#x28;3&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,CardID int&#x28;3&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;,Descr varchar&#x28;100&#x29;  COLLATE utf8_bin NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,Status char&#x28;10&#x29; COLLATE utf8_bin DEFAULT &#x27;Active&#x27; &#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_cartype &#x28;CardID&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa; &#xd;&#xa;-- DROP TABLE IF EXISTS dim_onlinereferal&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_onlinereferal &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,OnlinerefId INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,Descr VARCHAR&#x28;100&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,Status  VARCHAR&#x28;10&#x29; NOT NULL DEFAULT &#x27;A&#x27;&#xd;&#xa;,Commission DECIMAL&#x28;10,2&#x29; NOT NULL DEFAULT &#x27;0.00&#x27;&#xd;&#xa;,AutoSettle CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;N&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_onlinereferal &#x28;BranchId,OnlinerefId&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_tablefloor&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_tablefloor &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,TblFloorID INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,TypeId SMALLINT&#x28;2&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,Descr VARCHAR&#x28;300&#x29; NOT NULL  DEFAULT &#x27;&#x27;&#xd;&#xa;,Status VARCHAR&#x28;10&#x29; DEFAULT &#x27;Active&#x27;&#xd;&#xa;,AcFloor CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;N&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_tablefloor &#x28;BranchId,TblFloorID&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa; &#xd;&#xa; -- DROP TABLE IF EXISTS dim_tableno&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_tableno &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,BranchId INT&#x28;11&#x29; NOT NULL DEFAULT 0 COMMENT &#x27;Id of Dim_Branch table&#x27;&#xd;&#xa;,TableNo VARCHAR&#x28;6&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,DisplayOrder INT&#x28;5&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,Status CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;A&#x27;&#xd;&#xa;,Floor INT&#x28;2&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,ACtable CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;N&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;,UNIQUE KEY uniq_tableno &#x28;BranchId,TableNo&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_complimentary&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_complimentary &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,Status CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;N&#x27;&#xd;&#xa;,Descr CHAR&#x28;4&#x29; NOT NULL DEFAULT &#x27;No&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa; &#xd;&#xa;-- DROP TABLE IF EXISTS dim_discounttype&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_discounttype &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,DiscType CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,Descr VARCHAR&#x28;10&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa; &#xd;&#xa;-- DROP TABLE IF EXISTS dim_splittype&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_splittype &#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;,SplitType CHAR&#x28;1&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,Descr VARCHAR&#x28;20&#x29; NOT NULL DEFAULT &#x27;&#x27;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa; &#x29;&#x3b;&#xd;&#xa; &#xd;&#xa;-- DROP TABLE IF EXISTS dim_date&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_date&#xd;&#xa;&#x28;&#xd;&#xa; Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;, DimensionDate DATE  NOT NULL DEFAULT &#x27;0000-00-00&#x27;&#xd;&#xa;, DateId BIGINT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, Year INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, Quarter INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, Month INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, Day INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, Weekday  INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, MonthName VARCHAR&#x28;20&#x29; &#xd;&#xa;, MonthAbbreviation VARCHAR&#x28;20&#x29; &#xd;&#xa;, DayName VARCHAR&#x28;20&#x29; &#xd;&#xa;, DayAbbreviation VARCHAR&#x28;20&#x29; &#xd;&#xa;, YearInDimension INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, QuartersInDimension INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, MonthInDimension INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;, DayInYear INT&#x28;11&#x29; NOT NULL DEFAULT 0&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;&#x29;&#x3b;&#xd;&#xa;&#xd;&#xa;-- DROP TABLE IF EXISTS dim_time&#x3b;&#xd;&#xa;CREATE TABLE IF NOT EXISTS dim_time&#xd;&#xa;&#x28;&#xd;&#xa;Id INT&#x28;11&#x29; NOT NULL AUTO_INCREMENT&#xd;&#xa;, TimeId INT&#x28;11&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;, Hour INT&#x28;11&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;, Hour12 INT&#x28;11&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;, Minute INT&#x28;11&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;, Second INT&#x28;11&#x29;  NOT NULL DEFAULT 0&#xd;&#xa;, AMPM VARCHAR&#x28;8&#x29;&#xd;&#xa;, HMS VARCHAR&#x28;8&#x29;&#xd;&#xa;, HM VARCHAR&#x28;5&#x29;&#xd;&#xa;, HMS12 VARCHAR&#x28;20&#x29;&#xd;&#xa;,PRIMARY KEY &#x28;Id&#x29;&#xd;&#xa;&#x29;&#x3b;</sql>
+    <set_params>N</set_params>
+    <insert_field/>
+    <update_field/>
+    <delete_field/>
+    <read_field/>
+    <arguments>
+    </arguments>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>576</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Dummy</name>
+    <type>Dummy</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>256</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Filter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to>Build DWH</send_true_to>
+<send_false_to>Dummy</send_false_to>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>Rebuild_Status</leftvalue>
+ <function>&#x3d;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>Integer</type><text>1</text><length>-1</length><precision>0</precision><isnull>N</isnull><mask>&#x23;</mask></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>400</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Generate Rows</name>
+    <type>RowGenerator</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+    </fields>
+    <limit>1</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms>5000</interval_in_ms>
+    <row_time_field>now</row_time_field>
+    <last_time_field>FiveSecondsAgo</last_time_field>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>112</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Get Variables</name>
+    <type>GetVariable</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>
+      <field>
+        <name>Rebuild_Status</name>
+        <variable>&#x24;&#x7b;FE_DWHSCHEMA_BUILD&#x7d;</variable>
+        <type>Integer</type>
+        <format>&#x23;</format>
+        <currency/>
+        <decimal/>
+        <group/>
+        <length>-1</length>
+        <precision>-1</precision>
+        <trim_type>both</trim_type>
+      </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>256</xloc>
+      <yloc>128</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step_error_handling>
+  </step_error_handling>
+   <slave-step-copy-partition-distribution>
+</slave-step-copy-partition-distribution>
+   <slave_transformation>N</slave_transformation>
+
+</transformation>

@@ -68,7 +68,7 @@
   <created_user>-</created_user>
   <created_date>2018&#x2f;08&#x2f;18 16&#x3a;26&#x3a;31.685</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;08&#x2f;18 19&#x3a;04&#x3a;17.174</modified_date>
+  <modified_date>2018&#x2f;08&#x2f;24 20&#x3a;10&#x3a;11.486</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -76,13 +76,13 @@
   </notepads>
   <connection>
     <name>FE_DWH</name>
-    <server>localhost</server>
+    <server>&#x7b;fe_target_server&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>foodengine_dwh</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
+    <database>&#x7b;fe_target_database&#x7d;</database>
+    <port>&#x7b;fe_target_port&#x7d;</port>
+    <username>&#x7b;fe_target_username&#x7d;</username>
+    <password>Encrypted 7b66655dcaf9ddaf0fd3ad94aa0abd67d180abc7</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -92,7 +92,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x7b;fe_target_port&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>

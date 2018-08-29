@@ -1,6 +1,6 @@
 <transformation>
   <info>
-    <name>I_Load_Dim_Menu</name>
+    <name>I_Load_DimTime_Generator</name>
     <description/>
     <extended_description/>
     <trans_version/>
@@ -66,10 +66,10 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2018&#x2f;08&#x2f;18 18&#x3a;43&#x3a;09.734</created_date>
+  <created_date>2011&#x2f;11&#x2f;08 11&#x3a;26&#x3a;38.377</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;08&#x2f;18 19&#x3a;28&#x3a;13.161</modified_date>
-    <key_for_session_key/>
+  <modified_date>2018&#x2f;08&#x2f;24 19&#x3a;37&#x3a;13.410</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
@@ -101,44 +101,20 @@
       <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
     </attributes>
   </connection>
-  <connection>
-    <name>FE_Source</name>
-    <server>localhost</server>
-    <type>MYSQL</type>
-    <access>Native</access>
-    <database>foodengine_ho</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
-    <servername/>
-    <data_tablespace/>
-    <index_tablespace/>
-    <attributes>
-      <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
-      <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
-      <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
-      <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
-      <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
-      <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_BOOLEAN_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>SUPPORTS_TIMESTAMP_DATA_TYPE</code><attribute>Y</attribute></attribute>
-      <attribute><code>USE_POOLING</code><attribute>N</attribute></attribute>
-    </attributes>
-  </connection>
   <order>
-  <hop> <from>Fetch Menu Info</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Branch lookup</from><to>Department  lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Department  lookup</from><to>ComoTyppe lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>ComoTyppe lookup</from><to>Filter rows</to><enabled>Y</enabled> </hop>
-  <hop> <from>Filter rows</from><to>Load Menu</to><enabled>Y</enabled> </hop>
+  <hop> <from>24 hours</from><to>hour</to><enabled>Y</enabled> </hop>
+  <hop> <from>60 minutes</from><to>minute</to><enabled>Y</enabled> </hop>
+  <hop> <from>60 seconds</from><to>second</to><enabled>Y</enabled> </hop>
+  <hop> <from>x</from><to>calc fields</to><enabled>Y</enabled> </hop>
+  <hop> <from>calc fields</from><to>metadata</to><enabled>Y</enabled> </hop>
+  <hop> <from>metadata</from><to>TARGET</to><enabled>Y</enabled> </hop>
+  <hop> <from>hour</from><to>x</to><enabled>Y</enabled> </hop>
+  <hop> <from>minute</from><to>x</to><enabled>Y</enabled> </hop>
+  <hop> <from>second</from><to>x</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Fetch Menu Info</name>
-    <type>TableInput</type>
+    <name>24 hours</name>
+    <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -147,24 +123,24 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>FE_Source</connection>
-    <sql>SELECT&#xd;&#xa;  RestID&#xd;&#xa;, BranchID&#xd;&#xa;, MenuID&#xd;&#xa;, Code&#xd;&#xa;, Name&#xd;&#xa;, MainId&#xd;&#xa;, SubId&#xd;&#xa;, Price&#xd;&#xa;, AcPrice&#xd;&#xa;, ParcelPrice&#xd;&#xa;, RoomPrice&#xd;&#xa;, ItemLevel&#xd;&#xa;, ItemParent&#xd;&#xa;, Image&#xd;&#xa;, LargeImage&#xd;&#xa;, AdminImage&#xd;&#xa;, ItemStatus&#xd;&#xa;, ItemHide&#xd;&#xa;, DisplayOrder&#xd;&#xa;, DeptPrint&#xd;&#xa;, DeptID&#xd;&#xa;, SDeptID&#xd;&#xa;, RewardPoints&#xd;&#xa;, KDSEffTime&#xd;&#xa;, PrinterType&#xd;&#xa;, LockType&#xd;&#xa;, Threshhold&#xd;&#xa;, CreatedDate&#xd;&#xa;-- , DATE_FORMAT&#x28;LastUpdated,&#x27;&#x25;Y-&#x25;M-&#x25;D&#x27;&#x29; as LastUpdated&#xd;&#xa;, LastUpdated&#xd;&#xa;, ItemType&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy2&#xd;&#xa;, LItem&#xd;&#xa;, LType&#xd;&#xa;, FloorId&#xd;&#xa;, PrintUpon&#xd;&#xa;, ComboType&#xd;&#xa;, Custkot&#xd;&#xa;, DineInTax&#xd;&#xa;, TAwayTax&#xd;&#xa;, DelivTax&#xd;&#xa;, kotitemname&#xd;&#xa;, DeliveryPrice&#xd;&#xa;, TaxItem&#xd;&#xa;, ProdEnable&#xd;&#xa;, AcDineInTax&#xd;&#xa;, NonAcDineInTax&#xd;&#xa;, RoomServTax&#xd;&#xa;, RegionID&#xd;&#xa;, MenuType&#xd;&#xa;, HappyPrice&#xd;&#xa;, HappyAcPrice&#xd;&#xa;, SessionID&#xd;&#xa;, HsnId&#xd;&#xa;, Treat&#xd;&#xa;, Itemcombotype&#xd;&#xa;, PackingCharge&#xd;&#xa;, PackingChargeID&#xd;&#xa;, Calories&#xd;&#xa;, IncludeDiscount&#xd;&#xa;, IncludeTaxWithPrice&#xd;&#xa;, MProductionID&#xd;&#xa;, MIngredientID&#xd;&#xa;, synctype&#xd;&#xa;, MProdPrice&#xd;&#xa;, MStockprice&#xd;&#xa;FROM sr_menumstr_tbl&#xd;&#xa;&#xd;&#xa;</sql>
-    <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
-    <lazy_conversion_active>Y</lazy_conversion_active>
+    <fields>
+    </fields>
+    <limit>24</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms/>
+    <row_time_field/>
+    <last_time_field/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
+      <xloc>139</xloc>
+      <yloc>87</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Branch lookup</name>
-    <type>DBLookup</type>
+    <name>60 minutes</name>
+    <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -173,46 +149,24 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>FE_DWH</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_branch</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>RestID</name>
-        <field>RestCode</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>BranchID</name>
-        <field>BranchCode</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>Id</name>
-        <rename>DimBranchId</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <fields>
+    </fields>
+    <limit>60</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms/>
+    <row_time_field/>
+    <last_time_field/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>240</xloc>
-      <yloc>240</yloc>
+      <xloc>139</xloc>
+      <yloc>190</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Department  lookup</name>
-    <type>DBLookup</type>
+    <name>60 seconds</name>
+    <type>RowGenerator</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -221,87 +175,23 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-    <connection>FE_DWH</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_department</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>DimBranchId</name>
-        <field>BranchId</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>DeptID</name>
-        <field>DeptID</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>Id</name>
-        <rename>DimDepartmentId</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <fields>
+    </fields>
+    <limit>60</limit>
+    <never_ending>N</never_ending>
+    <interval_in_ms/>
+    <row_time_field/>
+    <last_time_field/>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>384</xloc>
-      <yloc>160</yloc>
+      <xloc>139</xloc>
+      <yloc>293</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>ComoTyppe lookup</name>
-    <type>DBLookup</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>FE_DWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_combotype</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>ComboType</name>
-        <field>ComboCode</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>Id</name>
-        <rename>DimComboTypeId</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>608</xloc>
-      <yloc>160</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Load Menu</name>
+    <name>TARGET</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -313,11 +203,11 @@
            </partitioning>
     <connection>FE_DWH</connection>
     <schema/>
-    <table>dim_menuitem</table>
+    <table>dim_time</table>
     <commit>1000</commit>
     <truncate>Y</truncate>
     <ignore_errors>N</ignore_errors>
-    <use_batch>N</use_batch>
+    <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
     <partitioning_enabled>N</partitioning_enabled>
     <partitioning_field/>
@@ -330,153 +220,53 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>Name</column_name>
-          <stream_name>Name</stream_name>
+          <column_name>Hour</column_name>
+          <stream_name>hour</stream_name>
         </field>
         <field>
-          <column_name>Price</column_name>
-          <stream_name>Price</stream_name>
+          <column_name>Hour12</column_name>
+          <stream_name>hour12</stream_name>
         </field>
         <field>
-          <column_name>AcPrice</column_name>
-          <stream_name>AcPrice</stream_name>
+          <column_name>Minute</column_name>
+          <stream_name>minute</stream_name>
         </field>
         <field>
-          <column_name>ParcelPrice</column_name>
-          <stream_name>ParcelPrice</stream_name>
+          <column_name>Second</column_name>
+          <stream_name>second</stream_name>
         </field>
         <field>
-          <column_name>RoomPrice</column_name>
-          <stream_name>RoomPrice</stream_name>
+          <column_name>AMPM</column_name>
+          <stream_name>ampm</stream_name>
         </field>
         <field>
-          <column_name>ItemLevel</column_name>
-          <stream_name>ItemLevel</stream_name>
+          <column_name>HMS</column_name>
+          <stream_name>hms</stream_name>
         </field>
         <field>
-          <column_name>ItemParent</column_name>
-          <stream_name>ItemParent</stream_name>
+          <column_name>HM</column_name>
+          <stream_name>hm</stream_name>
         </field>
         <field>
-          <column_name>ItemStatus</column_name>
-          <stream_name>ItemStatus</stream_name>
+          <column_name>HMS12</column_name>
+          <stream_name>hms12</stream_name>
         </field>
         <field>
-          <column_name>ItemHide</column_name>
-          <stream_name>ItemHide</stream_name>
-        </field>
-        <field>
-          <column_name>DisplayOrder</column_name>
-          <stream_name>DisplayOrder</stream_name>
-        </field>
-        <field>
-          <column_name>DeptPrint</column_name>
-          <stream_name>DeptPrint</stream_name>
-        </field>
-        <field>
-          <column_name>RewardPoints</column_name>
-          <stream_name>RewardPoints</stream_name>
-        </field>
-        <field>
-          <column_name>LockType</column_name>
-          <stream_name>LockType</stream_name>
-        </field>
-        <field>
-          <column_name>CreatedDate</column_name>
-          <stream_name>CreatedDate</stream_name>
-        </field>
-        <field>
-          <column_name>LastUpdated</column_name>
-          <stream_name>LastUpdated</stream_name>
-        </field>
-        <field>
-          <column_name>ItemType</column_name>
-          <stream_name>ItemType</stream_name>
-        </field>
-        <field>
-          <column_name>DineInTax</column_name>
-          <stream_name>DineInTax</stream_name>
-        </field>
-        <field>
-          <column_name>TAwayTax</column_name>
-          <stream_name>TAwayTax</stream_name>
-        </field>
-        <field>
-          <column_name>DelivTax</column_name>
-          <stream_name>DelivTax</stream_name>
-        </field>
-        <field>
-          <column_name>kotitemname</column_name>
-          <stream_name>kotitemname</stream_name>
-        </field>
-        <field>
-          <column_name>DeliveryPrice</column_name>
-          <stream_name>DeliveryPrice</stream_name>
-        </field>
-        <field>
-          <column_name>TaxItem</column_name>
-          <stream_name>TaxItem</stream_name>
-        </field>
-        <field>
-          <column_name>AcDineInTax</column_name>
-          <stream_name>AcDineInTax</stream_name>
-        </field>
-        <field>
-          <column_name>NonAcDineInTax</column_name>
-          <stream_name>NonAcDineInTax</stream_name>
-        </field>
-        <field>
-          <column_name>RoomServTax</column_name>
-          <stream_name>RoomServTax</stream_name>
-        </field>
-        <field>
-          <column_name>RegionID</column_name>
-          <stream_name>RegionID</stream_name>
-        </field>
-        <field>
-          <column_name>MenuType</column_name>
-          <stream_name>MenuType</stream_name>
-        </field>
-        <field>
-          <column_name>HappyPrice</column_name>
-          <stream_name>HappyPrice</stream_name>
-        </field>
-        <field>
-          <column_name>HappyAcPrice</column_name>
-          <stream_name>HappyAcPrice</stream_name>
-        </field>
-        <field>
-          <column_name>ComboTypeId</column_name>
-          <stream_name>DimComboTypeId</stream_name>
-        </field>
-        <field>
-          <column_name>DepartmentID</column_name>
-          <stream_name>DimDepartmentId</stream_name>
-        </field>
-        <field>
-          <column_name>BranchId</column_name>
-          <stream_name>DimBranchId</stream_name>
-        </field>
-        <field>
-          <column_name>MenuId</column_name>
-          <stream_name>MenuID</stream_name>
-        </field>
-        <field>
-          <column_name>MenuCode</column_name>
-          <stream_name>Code</stream_name>
+          <column_name>TimeId</column_name>
+          <stream_name>time_tk</stream_name>
         </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>832</xloc>
-      <yloc>160</yloc>
+      <xloc>980</xloc>
+      <yloc>190</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Filter rows</name>
-    <type>FilterRows</type>
+    <name>calc fields</name>
+    <type>ScriptValueMod</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -485,20 +275,234 @@
            <method>none</method>
            <schema_name/>
            </partitioning>
-<send_true_to>Load Menu</send_true_to>
-<send_false_to/>
+    <compatible>N</compatible>
+    <optimizationLevel>9</optimizationLevel>
+    <jsScripts>      <jsScript>        <jsScript_type>0</jsScript_type>
+        <jsScript_name>Script 1</jsScript_name>
+        <jsScript_script>&#xa;var time_tk &#x3d; hour&#x2a;10000&#x2b;minute&#x2a;100&#x2b;second&#x3b;&#xa;&#xa;var ampm &#x3d; &#x22;&#x3f;&#x22;&#x3b;&#xa;var hour12 &#x3d; -1&#x3b;&#xa;&#xa;if &#x28;hour&#x3d;&#x3d;0 &#x26;&#x26; minute&#x3d;&#x3d;0 &#x26;&#x26; second&#x3d;&#x3d;0&#x29; &#x7b;&#xa; ampm &#x3d; &#x22;midnight&#x22;&#x3b;&#xa; hour12 &#x3d; 12&#x3b;&#xa;&#x7d; else&#xa;if &#x28;hour&#x3d;&#x3d;12 &#x26;&#x26; minute&#x3d;&#x3d;0 &#x26;&#x26; second&#x3d;&#x3d;0&#x29; &#x7b;&#xa; ampm &#x3d; &#x22;noon&#x22;&#x3b;&#xa; hour12 &#x3d; 12&#x3b;&#xa;&#x7d; else if &#x28;hour&#x3d;&#x3d;0&#x29; &#x7b; &#xa; ampm &#x3d; &#x22;am&#x22;&#x3b;&#xa; hour12 &#x3d; 12&#x3b; &#xa;&#x7d; else if &#x28;hour&#x3d;&#x3d;12&#x29; &#x7b;&#xa; ampm &#x3d; &#x22;pm&#x22;&#x3b;&#xa; hour12 &#x3d; 12&#x3b;&#xa;&#x7d; else if &#x28;hour&#x3e;&#x3d;0 &#x26;&#x26; hour&#x3c;12&#x29; &#x7b;&#xa; ampm &#x3d; &#x22;am&#x22;&#x3b;&#xa; hour12 &#x3d; hour&#x3b;&#xa;&#x7d; else if &#x28;hour&#x3e;&#x3d;12&#x29; &#x7b;&#xa; ampm &#x3d; &#x22;pm&#x22;&#x3b;&#xa; hour12 &#x3d; hour - 12&#x3b;&#xa;&#x7d;&#xa;&#xa;var hms &#x3d; num2str&#x28;hour, &#x22;00&#x22;&#x29;&#x2b;&#x22;&#x3a;&#x22;&#x2b;num2str&#x28;minute, &#x22;00&#x22;&#x29;&#x2b;&#x22;&#x3a;&#x22;&#x2b;num2str&#x28;second, &#x22;00&#x22;&#x29;&#x3b;&#xa;var hm &#x3d; num2str&#x28;hour, &#x22;00&#x22;&#x29;&#x2b;&#x22;&#x3a;&#x22;&#x2b;num2str&#x28;minute, &#x22;00&#x22;&#x29;&#x3b;&#xa;&#xa;var hms12 &#x3d; hour12&#x2b;&#x22;&#x3a;&#x22;&#x2b;num2str&#x28;minute, &#x22;00&#x22;&#x29;&#x2b;&#x22;&#x3a;&#x22;&#x2b;num2str&#x28;second, &#x22;00&#x22;&#x29;&#x2b;&#x22; &#x22;&#x2b;ampm&#x3b;&#xa;&#xa;</jsScript_script>
+      </jsScript>    </jsScripts>    <fields>      <field>        <name>time_tk</name>
+        <rename>time_tk</rename>
+        <type>Integer</type>
+        <length>6</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>ampm</name>
+        <rename>ampm</rename>
+        <type>String</type>
+        <length>8</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>hour12</name>
+        <rename>hour12</rename>
+        <type>Integer</type>
+        <length>2</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>hms</name>
+        <rename>hms</rename>
+        <type>String</type>
+        <length>8</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>hm</name>
+        <rename>hm</rename>
+        <type>String</type>
+        <length>5</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>      <field>        <name>hms12</name>
+        <rename>hms12</rename>
+        <type>String</type>
+        <length>20</length>
+        <precision>-1</precision>
+        <replace>N</replace>
+      </field>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>635</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>hour</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>hour</valuename>
+      <use_database>N</use_database>
+      <connection/>
+      <schema/>
+      <seqname>SEQ_</seqname>
+      <use_counter>Y</use_counter>
+      <counter_name/>
+      <start_at>0</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>319</xloc>
+      <yloc>87</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>metadata</name>
+    <type>SelectValues</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <fields>        <select_unspecified>N</select_unspecified>
+      <meta>        <name>hour</name>
+        <rename>hour</rename>
+        <type>Integer</type>
+        <length>2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>minute</name>
+        <rename>minute</rename>
+        <type>Integer</type>
+        <length>2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>      <meta>        <name>second</name>
+        <rename>second</rename>
+        <type>Integer</type>
+        <length>2</length>
+        <precision>0</precision>
+        <conversion_mask/>
+        <date_format_lenient>false</date_format_lenient>
+        <date_format_locale/>
+        <date_format_timezone/>
+        <lenient_string_to_number>false</lenient_string_to_number>
+        <encoding/>
+        <decimal_symbol/>
+        <grouping_symbol/>
+        <currency_symbol/>
+        <storage_type/>
+      </meta>    </fields>     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>789</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>minute</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>minute</valuename>
+      <use_database>N</use_database>
+      <connection/>
+      <schema/>
+      <seqname>SEQ_</seqname>
+      <use_counter>Y</use_counter>
+      <counter_name/>
+      <start_at>0</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>319</xloc>
+      <yloc>190</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>second</name>
+    <type>Sequence</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <valuename>second</valuename>
+      <use_database>N</use_database>
+      <connection/>
+      <schema/>
+      <seqname>SEQ_</seqname>
+      <use_counter>Y</use_counter>
+      <counter_name/>
+      <start_at>0</start_at>
+      <increment_by>1</increment_by>
+      <max_value>999999999</max_value>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>319</xloc>
+      <yloc>293</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>x</name>
+    <type>JoinRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+      <directory>&#x25;&#x25;java.io.tmpdir&#x25;&#x25;</directory>
+      <prefix>out</prefix>
+      <cache_size>500</cache_size>
+      <main>hour</main>
     <compare>
 <condition>
  <negated>N</negated>
- <leftvalue>DimBranchId</leftvalue>
- <function>&#x3c;&#x3e;</function>
+ <leftvalue/>
+ <function>&#x3d;</function>
  <rightvalue/>
- <value><name>constant</name><type>String</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+ </condition>
     </compare>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>736</xloc>
-      <yloc>96</yloc>
+      <xloc>499</xloc>
+      <yloc>190</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

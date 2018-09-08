@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="src" path="src/main/java"/>
+	<classpathentry exported="true" kind="lib" path="C:/Frans/Development/CIAR/dsp/mondrian-3.0.jar/mondrian-3.0.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Frans/Development/Pentaho/FoodEngine_BI/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-api-7.1.0.0-12.jar"/>
+	<classpathentry exported="true" kind="lib" path="C:/Frans/Development/Pentaho/FoodEngine_BI/tomcat/webapps/pentaho/WEB-INF/lib/pentaho-platform-core-7.1.0.0-12.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>

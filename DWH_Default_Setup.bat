@@ -4,4 +4,4 @@ set ldt=%ldt:~0,4%-%ldt:~4,2%-%ldt:~6,2%_%ldt:~8,2%-%ldt:~10,2%-%ldt:~12,6%
 
 @echo on
 
-kitchen.bat /rep:FoodEngineETL /user:admin /pass: /job:INITIAL_LOAD\DWH_Initial_Load /level:Basic /logfile:.\FoodEngineDWH_logs\DWH_Initial_Load_%ldt%.log 
+kitchen.bat /rep:FoodEngineETL /user:admin /pass: /job:DEFAULT_LOAD\DWH_NonBranch_Default_Load /level:Basic /logfile:.\FoodEngineDWH_logs\DWH_Default_Setup_%ldt%.log

@@ -6,7 +6,7 @@
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;Initial Load</directory>
+    <directory>&#x2f;</directory>
     <parameters>
     </parameters>
     <log>
@@ -68,21 +68,21 @@
   <created_user>-</created_user>
   <created_date>2018&#x2f;08&#x2f;18 22&#x3a;46&#x3a;43.574</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;08&#x2f;18 23&#x3a;00&#x3a;48.553</modified_date>
-    <key_for_session_key/>
+  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;42&#x3a;20.191</modified_date>
+    <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
   <notepads>
   </notepads>
   <connection>
     <name>FE_DWH</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;FE_TARGET_SERVER&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>foodengine_dwh</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
+    <database>&#x24;&#x7b;FE_TARGET_DATABASE&#x7d;</database>
+    <port>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</port>
+    <username>&#x24;&#x7b;FE_TARGET_USERNAME&#x7d;</username>
+    <password>&#x24;&#x7b;FE_TARGET_PASSWORD&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -92,7 +92,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -103,13 +103,13 @@
   </connection>
   <connection>
     <name>FE_Source</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;FE_SOURCE_SERVER&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>foodengine_ho</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
+    <database>&#x24;&#x7b;FE_SOURCE_DATABASE&#x7d;</database>
+    <port>&#x24;&#x7b;FE_SOURCE_PORT&#x7d;</port>
+    <username>&#x24;&#x7b;FE_SOURCE_USERNAME&#x7d;</username>
+    <password>&#x24;&#x7b;FE_SOURCE_PASSWORD&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -120,7 +120,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;FE_SOURCE_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -132,7 +132,56 @@
   <order>
   <hop> <from>Fetch Onlinereferal Info</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
   <hop> <from>Branch lookup</from><to>Load Onlinereferal</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Subscriber</from><to>Fetch Onlinereferal Info</to><enabled>Y</enabled> </hop>
   </order>
+  <step>
+    <name>Branch lookup</name>
+    <type>DBLookup</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>FE_DWH</connection>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
+    <cache_size>0</cache_size>
+    <lookup>
+      <schema/>
+      <table>dim_branch</table>
+      <orderby/>
+      <fail_on_multiple>N</fail_on_multiple>
+      <eat_row_on_failure>N</eat_row_on_failure>
+      <key>
+        <name>RestID</name>
+        <field>RestCode</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <key>
+        <name>BranchID</name>
+        <field>BranchCode</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+      <value>
+        <name>Id</name>
+        <rename>DimBranchId</rename>
+        <default>0</default>
+        <type>Integer</type>
+      </value>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>464</xloc>
+      <yloc>176</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
   <step>
     <name>Fetch Onlinereferal Info</name>
     <type>TableInput</type>
@@ -145,11 +194,11 @@
            <schema_name/>
            </partitioning>
     <connection>FE_Source</connection>
-    <sql>SELECT&#xd;&#xa;  RestID&#xd;&#xa;, BranchID&#xd;&#xa;, ID&#xd;&#xa;, Descr&#xd;&#xa;, status&#xd;&#xa;, PaymodeId&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy2&#xd;&#xa;, Dummy3&#xd;&#xa;, Commission&#xd;&#xa;, AutoSettle&#xd;&#xa;FROM sr_onlinereferal_mstr&#xd;&#xa;</sql>
+    <sql>SELECT&#xd;&#xa;  RestID&#xd;&#xa;, BranchID&#xd;&#xa;, ID&#xd;&#xa;, Descr&#xd;&#xa;, status&#xd;&#xa;, PaymodeId&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy2&#xd;&#xa;, Dummy3&#xd;&#xa;, Commission&#xd;&#xa;, AutoSettle&#xd;&#xa;FROM sr_onlinereferal_mstr&#xd;&#xa;WHERE RestID &#x3d; &#x3f;</sql>
     <limit>0</limit>
-    <lookup/>
-    <execute_each_row>N</execute_each_row>
-    <variables_active>N</variables_active>
+    <lookup>Fetch Subscriber</lookup>
+    <execute_each_row>Y</execute_each_row>
+    <variables_active>Y</variables_active>
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
@@ -174,7 +223,7 @@
     <schema/>
     <table>dim_onlinereferal</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -222,8 +271,8 @@
     </step>
 
   <step>
-    <name>Branch lookup</name>
-    <type>DBLookup</type>
+    <name>Fetch Subscriber</name>
+    <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
     <custom_distribution/>
@@ -233,38 +282,16 @@
            <schema_name/>
            </partitioning>
     <connection>FE_DWH</connection>
-    <cache>Y</cache>
-    <cache_load_all>Y</cache_load_all>
-    <cache_size>0</cache_size>
-    <lookup>
-      <schema/>
-      <table>dim_branch</table>
-      <orderby/>
-      <fail_on_multiple>N</fail_on_multiple>
-      <eat_row_on_failure>N</eat_row_on_failure>
-      <key>
-        <name>RestID</name>
-        <field>RestCode</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <key>
-        <name>BranchID</name>
-        <field>BranchCode</field>
-        <condition>&#x3d;</condition>
-        <name2/>
-      </key>
-      <value>
-        <name>Id</name>
-        <rename>DimBranchId</rename>
-        <default>0</default>
-        <type>Integer</type>
-      </value>
-    </lookup>
+    <sql>SELECT&#xd;&#xa;   RestCode&#xd;&#xa;FROM dim_subscribeuser &#xd;&#xa;WHERE Active&#x3d;1&#xd;&#xa;</sql>
+    <limit>0</limit>
+    <lookup/>
+    <execute_each_row>N</execute_each_row>
+    <variables_active>N</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>464</xloc>
-      <yloc>176</yloc>
+      <xloc>176</xloc>
+      <yloc>240</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

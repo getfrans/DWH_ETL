@@ -6,7 +6,7 @@
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;Initial Load</directory>
+    <directory>&#x2f;INITIAL_Load</directory>
     <parameters>
     </parameters>
     <log>
@@ -68,7 +68,7 @@
   <created_user>-</created_user>
   <created_date>2018&#x2f;08&#x2f;18 10&#x3a;06&#x3a;49.931</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;08&#x2f;18 16&#x3a;17&#x3a;20.106</modified_date>
+  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;41&#x3a;24.901</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -76,13 +76,13 @@
   </notepads>
   <connection>
     <name>FE_DWH</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;FE_TARGET_SERVER&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>foodengine_dwh</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
+    <database>&#x24;&#x7b;FE_TARGET_DATABASE&#x7d;</database>
+    <port>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</port>
+    <username>&#x24;&#x7b;FE_TARGET_USERNAME&#x7d;</username>
+    <password>&#x24;&#x7b;FE_TARGET_PASSWORD&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
@@ -92,7 +92,7 @@
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;FE_TARGET_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -103,23 +103,24 @@
   </connection>
   <connection>
     <name>FE_Source</name>
-    <server>localhost</server>
+    <server>&#x24;&#x7b;FE_SOURCE_SERVER&#x7d;</server>
     <type>MYSQL</type>
     <access>Native</access>
-    <database>foodengine_ho</database>
-    <port>3306</port>
-    <username>root</username>
-    <password>Encrypted 2be98afc86aa7f2e4cb79ff228dc6fa8c</password>
+    <database>&#x24;&#x7b;FE_SOURCE_DATABASE&#x7d;</database>
+    <port>&#x24;&#x7b;FE_SOURCE_PORT&#x7d;</port>
+    <username>&#x24;&#x7b;FE_SOURCE_USERNAME&#x7d;</username>
+    <password>&#x24;&#x7b;FE_SOURCE_PASSWORD&#x7d;</password>
     <servername/>
     <data_tablespace/>
     <index_tablespace/>
     <attributes>
       <attribute><code>EXTRA_OPTION_MYSQL.defaultFetchSize</code><attribute>500</attribute></attribute>
       <attribute><code>EXTRA_OPTION_MYSQL.useCursorFetch</code><attribute>true</attribute></attribute>
+      <attribute><code>EXTRA_OPTION_MYSQL.zeroDateTimeBehavior</code><attribute>convertToNull</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_LOWERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>FORCE_IDENTIFIERS_TO_UPPERCASE</code><attribute>N</attribute></attribute>
       <attribute><code>IS_CLUSTERED</code><attribute>N</attribute></attribute>
-      <attribute><code>PORT_NUMBER</code><attribute>3306</attribute></attribute>
+      <attribute><code>PORT_NUMBER</code><attribute>&#x24;&#x7b;FE_SOURCE_PORT&#x7d;</attribute></attribute>
       <attribute><code>PRESERVE_RESERVED_WORD_CASE</code><attribute>Y</attribute></attribute>
       <attribute><code>QUOTE_ALL_FIELDS</code><attribute>N</attribute></attribute>
       <attribute><code>STREAM_RESULTS</code><attribute>Y</attribute></attribute>
@@ -129,10 +130,43 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Fetch Brach Info</from><to>Load Branch</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Branch Info</from><to>Load Branch</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Subscriber</from><to>Delete Branch</to><enabled>Y</enabled> </hop>
+  <hop> <from>Delete Branch</from><to>Fetch Branch Info</to><enabled>Y</enabled> </hop>
   </order>
   <step>
-    <name>Fetch Brach Info</name>
+    <name>Delete Branch</name>
+    <type>Delete</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>FE_DWH</connection>
+    <commit>100</commit>
+    <lookup>
+      <schema/>
+      <table>dim_branch</table>
+      <key>
+        <name>RestCode</name>
+        <field>RestCode</field>
+        <condition>&#x3d;</condition>
+        <name2/>
+      </key>
+    </lookup>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>256</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Fetch Branch Info</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -143,7 +177,33 @@
            <schema_name/>
            </partitioning>
     <connection>FE_Source</connection>
-    <sql>SELECT&#xd;&#xa;  AdminID1&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, BranchName&#xd;&#xa;, BranchType&#xd;&#xa;, eMailID&#xd;&#xa;, AreaCode&#xd;&#xa;, SeatResrv&#xd;&#xa;, Addr1&#xd;&#xa;, Mobile1&#xd;&#xa;, CreatedDate&#xd;&#xa;, CityCode&#xd;&#xa;, District&#xd;&#xa;, StateCode&#xd;&#xa;, CountryCode&#xd;&#xa;, PinCode&#xd;&#xa;, Phone1&#xd;&#xa;, Phone2&#xd;&#xa;, LastUpdated&#xd;&#xa;, Status&#xd;&#xa;, Addr2&#xd;&#xa;, PrintDelReceipt&#xd;&#xa;, Printtwreceipt&#xd;&#xa;, PrintAddwtcopy&#xd;&#xa;, PrinttwKot&#xd;&#xa;, PrintReceipt&#xd;&#xa;, PrintDelivery&#xd;&#xa;, PrintKitchen&#xd;&#xa;, PrintWaiter&#xd;&#xa;, PrintDrivReceipt&#xd;&#xa;, ReprintAllPrintReciept&#xd;&#xa;, SendKitchen&#xd;&#xa;, DeleteOrder&#xd;&#xa;, KitchenTrack&#xd;&#xa;, StockDedTyp&#xd;&#xa;, PrintPurchase&#xd;&#xa;, PrintFrom&#xd;&#xa;, NoofSessions&#xd;&#xa;, DelivMinCharge&#xd;&#xa;, PrinterIP&#xd;&#xa;, CustReward&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy2&#xd;&#xa;, Dummy3&#xd;&#xa;, RewardSms&#xd;&#xa;, RewardPoint&#xd;&#xa;, RewardVal&#xd;&#xa;, MinRewardPoint&#xd;&#xa;, MaxRewardPoint&#xd;&#xa;, DiscountAvail&#xd;&#xa;, IsDelivMust&#xd;&#xa;, MaxDiscount&#xd;&#xa;, KitchenAck&#xd;&#xa;, KitchenAckType&#xd;&#xa;, ACHall&#xd;&#xa;, ParcelPrice&#xd;&#xa;, AuthPickUp&#xd;&#xa;, AuthBill&#xd;&#xa;, AuthReprint&#xd;&#xa;, SettleBill&#xd;&#xa;, UserID&#xd;&#xa;, DeliveryBill&#xd;&#xa;, DeliverySettlment&#xd;&#xa;, DynamicPrinter&#xd;&#xa;, AccountsCopy&#xd;&#xa;, PaidPickUp&#xd;&#xa;, Roomservice&#xd;&#xa;, DelvChgApp&#xd;&#xa;, ModifyKot&#xd;&#xa;, T_ModifyKOT&#xd;&#xa;, Del_ModifyKOT&#xd;&#xa;, D_ModifyKOT&#xd;&#xa;, AdminID&#xd;&#xa;, DriverBill&#xd;&#xa;, DC_CustomerAddr&#xd;&#xa;, DelItemMob&#xd;&#xa;, OrderSMS&#xd;&#xa;, DriverSMS&#xd;&#xa;, DelStartSMS&#xd;&#xa;, BillCancelSMS&#xd;&#xa;, DayEndSMS&#xd;&#xa;, CashSettleSMS&#xd;&#xa;, OnlineOrderSMS&#xd;&#xa;, OnlineApvrdEnable&#xd;&#xa;, OnlinePayment&#xd;&#xa;, CCNewitemEnable&#xd;&#xa;, ImmediateSettlement&#xd;&#xa;, Tips&#xd;&#xa;, MobFinalizeBill&#xd;&#xa;, PickAlert&#xd;&#xa;, CancelKot&#xd;&#xa;, Complementary&#xd;&#xa;, VerifyKotflag&#xd;&#xa;, NoofKot_TD&#xd;&#xa;, NoofBill_DI&#xd;&#xa;, NoofBill_TD&#xd;&#xa;, NoofBill_Del&#xd;&#xa;, Autosettle&#xd;&#xa;, AutoSettle_TAway&#xd;&#xa;, AutoSettle_Delivery&#xd;&#xa;, PickUpClose&#xd;&#xa;, PriceType&#xd;&#xa;, TWaiter&#xd;&#xa;, DWaiter&#xd;&#xa;, Paymodereport&#xd;&#xa;, KotTicketformat&#xd;&#xa;, CancelKotTicket&#xd;&#xa;, Ticketformat&#xd;&#xa;, Drivertcktformat&#xd;&#xa;, CountPeople&#xd;&#xa;, KotDisc&#xd;&#xa;, MerchantKey&#xd;&#xa;, SaltKey&#xd;&#xa;, Paytm_MKey&#xd;&#xa;, Paytm_MId&#xd;&#xa;, Paytm_CUrl&#xd;&#xa;, ReturnUrl&#xd;&#xa;, PaytmDomainName&#xd;&#xa;, ReservMobile&#xd;&#xa;, ReservEmail&#xd;&#xa;, MobMandatory&#xd;&#xa;, CompCancelAuthMob&#xd;&#xa;, DeliveryPrice&#xd;&#xa;, PrintSettleReceipt&#xd;&#xa;, StockDetectFrom&#xd;&#xa;, RegionID&#xd;&#xa;, MenuLastSync&#xd;&#xa;, BranchAppType&#xd;&#xa;, BarcodePrint&#xd;&#xa;, NoofBill_Settlement&#xd;&#xa;, InclusiveOfTax&#xd;&#xa;, AllowModprint&#xd;&#xa;, NegativeFBSms&#xd;&#xa;, FeedbackAppType&#xd;&#xa;, CancelCompAfterSettle&#xd;&#xa;, PaytmMerchantWebsite&#xd;&#xa;, Barcodesheet&#xd;&#xa;, Cuisine&#xd;&#xa;, Latitude&#xd;&#xa;, Longitude&#xd;&#xa;, VendorMail&#xd;&#xa;, kotcount&#xd;&#xa;, B2CPlan&#xd;&#xa;, TokenCount&#xd;&#xa;, CCActive&#xd;&#xa;, StockLastSync&#xd;&#xa;, IsCallCenter&#xd;&#xa;, BranchReqFilterenable&#xd;&#xa;FROM sr_branches_tbl&#xd;&#xa;</sql>
+    <sql>SELECT&#xd;&#xa;  AdminID1&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, BranchName&#xd;&#xa;, BranchType&#xd;&#xa;, eMailID&#xd;&#xa;, AreaCode&#xd;&#xa;, SeatResrv&#xd;&#xa;, Addr1&#xd;&#xa;, Mobile1&#xd;&#xa;, CreatedDate&#xd;&#xa;, CityCode&#xd;&#xa;, District&#xd;&#xa;, StateCode&#xd;&#xa;, CountryCode&#xd;&#xa;, PinCode&#xd;&#xa;, Phone1&#xd;&#xa;, Phone2&#xd;&#xa;, LastUpdated&#xd;&#xa;, Status&#xd;&#xa;, Addr2&#xd;&#xa;, PrintDelReceipt&#xd;&#xa;, Printtwreceipt&#xd;&#xa;, PrintAddwtcopy&#xd;&#xa;, PrinttwKot&#xd;&#xa;, PrintReceipt&#xd;&#xa;, PrintDelivery&#xd;&#xa;, PrintKitchen&#xd;&#xa;, PrintWaiter&#xd;&#xa;, PrintDrivReceipt&#xd;&#xa;, ReprintAllPrintReciept&#xd;&#xa;, SendKitchen&#xd;&#xa;, DeleteOrder&#xd;&#xa;, KitchenTrack&#xd;&#xa;, StockDedTyp&#xd;&#xa;, PrintPurchase&#xd;&#xa;, PrintFrom&#xd;&#xa;, NoofSessions&#xd;&#xa;, DelivMinCharge&#xd;&#xa;, PrinterIP&#xd;&#xa;, CustReward&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy2&#xd;&#xa;, Dummy3&#xd;&#xa;, RewardSms&#xd;&#xa;, RewardPoint&#xd;&#xa;, RewardVal&#xd;&#xa;, MinRewardPoint&#xd;&#xa;, MaxRewardPoint&#xd;&#xa;, DiscountAvail&#xd;&#xa;, IsDelivMust&#xd;&#xa;, MaxDiscount&#xd;&#xa;, KitchenAck&#xd;&#xa;, KitchenAckType&#xd;&#xa;, ACHall&#xd;&#xa;, ParcelPrice&#xd;&#xa;, AuthPickUp&#xd;&#xa;, AuthBill&#xd;&#xa;, AuthReprint&#xd;&#xa;, SettleBill&#xd;&#xa;, UserID&#xd;&#xa;, DeliveryBill&#xd;&#xa;, DeliverySettlment&#xd;&#xa;, DynamicPrinter&#xd;&#xa;, AccountsCopy&#xd;&#xa;, PaidPickUp&#xd;&#xa;, Roomservice&#xd;&#xa;, DelvChgApp&#xd;&#xa;, ModifyKot&#xd;&#xa;, T_ModifyKOT&#xd;&#xa;, Del_ModifyKOT&#xd;&#xa;, D_ModifyKOT&#xd;&#xa;, AdminID&#xd;&#xa;, DriverBill&#xd;&#xa;, DC_CustomerAddr&#xd;&#xa;, DelItemMob&#xd;&#xa;, OrderSMS&#xd;&#xa;, DriverSMS&#xd;&#xa;, DelStartSMS&#xd;&#xa;, BillCancelSMS&#xd;&#xa;, DayEndSMS&#xd;&#xa;, CashSettleSMS&#xd;&#xa;, OnlineOrderSMS&#xd;&#xa;, OnlineApvrdEnable&#xd;&#xa;, OnlinePayment&#xd;&#xa;, CCNewitemEnable&#xd;&#xa;, ImmediateSettlement&#xd;&#xa;, Tips&#xd;&#xa;, MobFinalizeBill&#xd;&#xa;, PickAlert&#xd;&#xa;, CancelKot&#xd;&#xa;, Complementary&#xd;&#xa;, VerifyKotflag&#xd;&#xa;, NoofKot_TD&#xd;&#xa;, NoofBill_DI&#xd;&#xa;, NoofBill_TD&#xd;&#xa;, NoofBill_Del&#xd;&#xa;, Autosettle&#xd;&#xa;, AutoSettle_TAway&#xd;&#xa;, AutoSettle_Delivery&#xd;&#xa;, PickUpClose&#xd;&#xa;, PriceType&#xd;&#xa;, TWaiter&#xd;&#xa;, DWaiter&#xd;&#xa;, Paymodereport&#xd;&#xa;, KotTicketformat&#xd;&#xa;, CancelKotTicket&#xd;&#xa;, Ticketformat&#xd;&#xa;, Drivertcktformat&#xd;&#xa;, CountPeople&#xd;&#xa;, KotDisc&#xd;&#xa;, MerchantKey&#xd;&#xa;, SaltKey&#xd;&#xa;, Paytm_MKey&#xd;&#xa;, Paytm_MId&#xd;&#xa;, Paytm_CUrl&#xd;&#xa;, ReturnUrl&#xd;&#xa;, PaytmDomainName&#xd;&#xa;, ReservMobile&#xd;&#xa;, ReservEmail&#xd;&#xa;, MobMandatory&#xd;&#xa;, CompCancelAuthMob&#xd;&#xa;, DeliveryPrice&#xd;&#xa;, PrintSettleReceipt&#xd;&#xa;, StockDetectFrom&#xd;&#xa;, RegionID&#xd;&#xa;, MenuLastSync&#xd;&#xa;, BranchAppType&#xd;&#xa;, BarcodePrint&#xd;&#xa;, NoofBill_Settlement&#xd;&#xa;, InclusiveOfTax&#xd;&#xa;, AllowModprint&#xd;&#xa;, NegativeFBSms&#xd;&#xa;, FeedbackAppType&#xd;&#xa;, CancelCompAfterSettle&#xd;&#xa;, PaytmMerchantWebsite&#xd;&#xa;, Barcodesheet&#xd;&#xa;, Cuisine&#xd;&#xa;, Latitude&#xd;&#xa;, Longitude&#xd;&#xa;, VendorMail&#xd;&#xa;, kotcount&#xd;&#xa;, B2CPlan&#xd;&#xa;, TokenCount&#xd;&#xa;, CCActive&#xd;&#xa;, StockLastSync&#xd;&#xa;, IsCallCenter&#xd;&#xa;, BranchReqFilterenable&#xd;&#xa;FROM sr_branches_tbl&#xd;&#xa;where RestId &#x3d; &#x3f;&#xd;&#xa;</sql>
+    <limit>0</limit>
+    <lookup>Delete Branch</lookup>
+    <execute_each_row>Y</execute_each_row>
+    <variables_active>Y</variables_active>
+    <lazy_conversion_active>N</lazy_conversion_active>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>256</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Fetch Subscriber</name>
+    <type>TableInput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>FE_DWH</connection>
+    <sql>SELECT&#xd;&#xa;   RestCode&#xd;&#xa;FROM dim_subscribeuser &#xd;&#xa;WHERE Active&#x3d;1&#xd;&#xa;</sql>
     <limit>0</limit>
     <lookup/>
     <execute_each_row>N</execute_each_row>
@@ -151,8 +211,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>200</xloc>
-      <yloc>100</yloc>
+      <xloc>96</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -172,7 +232,7 @@
     <schema/>
     <table>dim_branch</table>
     <commit>1000</commit>
-    <truncate>Y</truncate>
+    <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
     <use_batch>Y</use_batch>
     <specify_fields>Y</specify_fields>
@@ -205,8 +265,8 @@
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>100</yloc>
+      <xloc>432</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

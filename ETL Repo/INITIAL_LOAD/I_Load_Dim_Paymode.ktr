@@ -1,12 +1,12 @@
 <transformation>
   <info>
-    <name>I_Load_Dim_Department</name>
+    <name>I_Load_Paymode</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;</directory>
+    <directory>&#x2f;INITIAL_Load</directory>
     <parameters>
     </parameters>
     <log>
@@ -66,9 +66,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2018&#x2f;08&#x2f;18 16&#x3a;10&#x3a;02.491</created_date>
+  <created_date>2018&#x2f;08&#x2f;18 23&#x3a;37&#x3a;59.997</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;45&#x3a;04.787</modified_date>
+  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;55&#x3a;17.081</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -130,9 +130,10 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Fetch Department Info</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Branch lookup</from><to>Load Department</to><enabled>Y</enabled> </hop>
-  <hop> <from>Fetch Subscriber</from><to>Fetch Department Info</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Paymode</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>Branch lookup</from><to>FIlter rows</to><enabled>Y</enabled> </hop>
+  <hop> <from>FIlter rows</from><to>Load Paymode</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Subscriber</from><to>Fetch Paymode</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Branch lookup</name>
@@ -146,8 +147,8 @@
            <schema_name/>
            </partitioning>
     <connection>FE_DWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
@@ -170,20 +171,49 @@
       <value>
         <name>Id</name>
         <rename>DimBranchId</rename>
-        <default/>
+        <default>0</default>
         <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>512</xloc>
-      <yloc>32</yloc>
+      <xloc>400</xloc>
+      <yloc>96</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Fetch Department Info</name>
+    <name>FIlter rows</name>
+    <type>FilterRows</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+<send_true_to/>
+<send_false_to/>
+    <compare>
+<condition>
+ <negated>N</negated>
+ <leftvalue>DimBranchId</leftvalue>
+ <function>&#x3c;&#x3e;</function>
+ <rightvalue/>
+ <value><name>constant</name><type>String</type><text>0</text><length>-1</length><precision>-1</precision><isnull>N</isnull><mask/></value> </condition>
+    </compare>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>528</xloc>
+      <yloc>96</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Fetch Paymode</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -194,7 +224,7 @@
            <schema_name/>
            </partitioning>
     <connection>FE_Source</connection>
-    <sql>SELECT&#xd;&#xa;  DeptID&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, DeptName&#xd;&#xa;, NoofItems&#xd;&#xa;, Language&#xd;&#xa;, CreatedDate&#xd;&#xa;, Createdby&#xd;&#xa;, PrinterType&#xd;&#xa;, PrinterAddcopy&#xd;&#xa;, KotTitle&#xd;&#xa;, Dummy1&#xd;&#xa;, KotPrintKDS&#xd;&#xa;FROM sr_department_mstr&#xd;&#xa;WHERE RestID &#x3d; &#x3f;&#xd;&#xa;</sql>
+    <sql>SELECT&#xd;&#xa;  PayMstrID&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, PaymodeID&#xd;&#xa;, Descr&#xd;&#xa;, Dummy1&#xd;&#xa;, Dummy&#xd;&#xa;, Status&#xd;&#xa;FROM sr_paymode_mstr&#xd;&#xa;WHERE RestID &#x3d; &#x3f;</sql>
     <limit>0</limit>
     <lookup>Fetch Subscriber</lookup>
     <execute_each_row>Y</execute_each_row>
@@ -202,74 +232,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>96</yloc>
-      <draw>Y</draw>
-      </GUI>
-    </step>
-
-  <step>
-    <name>Load Department</name>
-    <type>TableOutput</type>
-    <description/>
-    <distribute>Y</distribute>
-    <custom_distribution/>
-    <copies>1</copies>
-         <partitioning>
-           <method>none</method>
-           <schema_name/>
-           </partitioning>
-    <connection>FE_DWH</connection>
-    <schema/>
-    <table>dim_department</table>
-    <commit>1000</commit>
-    <truncate>N</truncate>
-    <ignore_errors>N</ignore_errors>
-    <use_batch>Y</use_batch>
-    <specify_fields>Y</specify_fields>
-    <partitioning_enabled>N</partitioning_enabled>
-    <partitioning_field/>
-    <partitioning_daily>N</partitioning_daily>
-    <partitioning_monthly>Y</partitioning_monthly>
-    <tablename_in_field>N</tablename_in_field>
-    <tablename_field/>
-    <tablename_in_table>Y</tablename_in_table>
-    <return_keys>N</return_keys>
-    <return_field/>
-    <fields>
-        <field>
-          <column_name>DeptID</column_name>
-          <stream_name>DeptID</stream_name>
-        </field>
-        <field>
-          <column_name>DeptName</column_name>
-          <stream_name>DeptName</stream_name>
-        </field>
-        <field>
-          <column_name>NoofItems</column_name>
-          <stream_name>NoofItems</stream_name>
-        </field>
-        <field>
-          <column_name>CreatedDate</column_name>
-          <stream_name>CreatedDate</stream_name>
-        </field>
-        <field>
-          <column_name>Createdby</column_name>
-          <stream_name>Createdby</stream_name>
-        </field>
-        <field>
-          <column_name>KotTitle</column_name>
-          <stream_name>KotTitle</stream_name>
-        </field>
-        <field>
-          <column_name>BranchId</column_name>
-          <stream_name>DimBranchId</stream_name>
-        </field>
-    </fields>
-     <cluster_schema/>
- <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>304</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -294,8 +258,66 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>96</yloc>
+      <xloc>176</xloc>
+      <yloc>192</yloc>
+      <draw>Y</draw>
+      </GUI>
+    </step>
+
+  <step>
+    <name>Load Paymode</name>
+    <type>TableOutput</type>
+    <description/>
+    <distribute>Y</distribute>
+    <custom_distribution/>
+    <copies>1</copies>
+         <partitioning>
+           <method>none</method>
+           <schema_name/>
+           </partitioning>
+    <connection>FE_DWH</connection>
+    <schema/>
+    <table>dim_paymode</table>
+    <commit>1000</commit>
+    <truncate>N</truncate>
+    <ignore_errors>N</ignore_errors>
+    <use_batch>Y</use_batch>
+    <specify_fields>Y</specify_fields>
+    <partitioning_enabled>N</partitioning_enabled>
+    <partitioning_field/>
+    <partitioning_daily>N</partitioning_daily>
+    <partitioning_monthly>Y</partitioning_monthly>
+    <tablename_in_field>N</tablename_in_field>
+    <tablename_field/>
+    <tablename_in_table>Y</tablename_in_table>
+    <return_keys>N</return_keys>
+    <return_field/>
+    <fields>
+        <field>
+          <column_name>PayMstrID</column_name>
+          <stream_name>PayMstrID</stream_name>
+        </field>
+        <field>
+          <column_name>PaymodeID</column_name>
+          <stream_name>PaymodeID</stream_name>
+        </field>
+        <field>
+          <column_name>Descr</column_name>
+          <stream_name>Descr</stream_name>
+        </field>
+        <field>
+          <column_name>Status</column_name>
+          <stream_name>Status</stream_name>
+        </field>
+        <field>
+          <column_name>BranchId</column_name>
+          <stream_name>DimBranchId</stream_name>
+        </field>
+    </fields>
+     <cluster_schema/>
+ <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
+      <xloc>624</xloc>
+      <yloc>192</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

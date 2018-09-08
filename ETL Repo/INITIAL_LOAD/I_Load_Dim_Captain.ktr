@@ -1,12 +1,12 @@
 <transformation>
   <info>
-    <name>I_Load_Dim_Department</name>
+    <name>I_Load_Dim_Captain</name>
     <description/>
     <extended_description/>
     <trans_version/>
     <trans_type>Normal</trans_type>
     <trans_status>0</trans_status>
-    <directory>&#x2f;</directory>
+    <directory>&#x2f;INITIAL_Load</directory>
     <parameters>
     </parameters>
     <log>
@@ -66,9 +66,9 @@
     <clusterschemas>
     </clusterschemas>
   <created_user>-</created_user>
-  <created_date>2018&#x2f;08&#x2f;18 16&#x3a;10&#x3a;02.491</created_date>
+  <created_date>2018&#x2f;09&#x2f;08 11&#x3a;26&#x3a;37.948</created_date>
   <modified_user>-</modified_user>
-  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;45&#x3a;04.787</modified_date>
+  <modified_date>2018&#x2f;09&#x2f;08 15&#x3a;47&#x3a;30.364</modified_date>
     <key_for_session_key>H4sIAAAAAAAAAAMAAAAAAAAAAAA&#x3d;</key_for_session_key>
     <is_key_private>N</is_key_private>
   </info>
@@ -130,9 +130,9 @@
     </attributes>
   </connection>
   <order>
-  <hop> <from>Fetch Department Info</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
-  <hop> <from>Branch lookup</from><to>Load Department</to><enabled>Y</enabled> </hop>
-  <hop> <from>Fetch Subscriber</from><to>Fetch Department Info</to><enabled>Y</enabled> </hop>
+  <hop> <from>Branch lookup</from><to>Load Captain</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Captain Info</from><to>Branch lookup</to><enabled>Y</enabled> </hop>
+  <hop> <from>Fetch Subscriber</from><to>Fetch Captain Info</to><enabled>Y</enabled> </hop>
   </order>
   <step>
     <name>Branch lookup</name>
@@ -146,8 +146,8 @@
            <schema_name/>
            </partitioning>
     <connection>FE_DWH</connection>
-    <cache>N</cache>
-    <cache_load_all>N</cache_load_all>
+    <cache>Y</cache>
+    <cache_load_all>Y</cache_load_all>
     <cache_size>0</cache_size>
     <lookup>
       <schema/>
@@ -170,20 +170,20 @@
       <value>
         <name>Id</name>
         <rename>DimBranchId</rename>
-        <default/>
+        <default>0</default>
         <type>Integer</type>
       </value>
     </lookup>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>512</xloc>
-      <yloc>32</yloc>
+      <xloc>346</xloc>
+      <yloc>198</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Fetch Department Info</name>
+    <name>Fetch Captain Info</name>
     <type>TableInput</type>
     <description/>
     <distribute>Y</distribute>
@@ -194,7 +194,7 @@
            <schema_name/>
            </partitioning>
     <connection>FE_Source</connection>
-    <sql>SELECT&#xd;&#xa;  DeptID&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, DeptName&#xd;&#xa;, NoofItems&#xd;&#xa;, Language&#xd;&#xa;, CreatedDate&#xd;&#xa;, Createdby&#xd;&#xa;, PrinterType&#xd;&#xa;, PrinterAddcopy&#xd;&#xa;, KotTitle&#xd;&#xa;, Dummy1&#xd;&#xa;, KotPrintKDS&#xd;&#xa;FROM sr_department_mstr&#xd;&#xa;WHERE RestID &#x3d; &#x3f;&#xd;&#xa;</sql>
+    <sql>SELECT&#xd;&#xa;  EmpCode&#xd;&#xa;, RestID&#xd;&#xa;, BranchID&#xd;&#xa;, WaiterName&#xd;&#xa;, Password&#xd;&#xa;, Address&#xd;&#xa;, Email&#xd;&#xa;, Mobile&#xd;&#xa;, Phone&#xd;&#xa;, photo&#xd;&#xa;, ID1&#xd;&#xa;, ID2&#xd;&#xa;, Status&#xd;&#xa;, RewardPoints&#xd;&#xa;, Balance&#xd;&#xa;, DineIn&#xd;&#xa;, TakeAway&#xd;&#xa;, Delivery&#xd;&#xa;, FloorAccess&#xd;&#xa;, DriverLatitude&#xd;&#xa;, DriverLongitude&#xd;&#xa;, GCMRegisterID&#xd;&#xa;, Device&#xd;&#xa;, EmpStatus&#xd;&#xa;FROM sr_waiter_name_tbl&#xd;&#xa;WHERE RestID &#x3d; &#x3f;</sql>
     <limit>0</limit>
     <lookup>Fetch Subscriber</lookup>
     <execute_each_row>Y</execute_each_row>
@@ -202,14 +202,14 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>400</xloc>
-      <yloc>96</yloc>
+      <xloc>266</xloc>
+      <yloc>262</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
 
   <step>
-    <name>Load Department</name>
+    <name>Load Captain</name>
     <type>TableOutput</type>
     <description/>
     <distribute>Y</distribute>
@@ -221,7 +221,7 @@
            </partitioning>
     <connection>FE_DWH</connection>
     <schema/>
-    <table>dim_department</table>
+    <table>dim_captain</table>
     <commit>1000</commit>
     <truncate>N</truncate>
     <ignore_errors>N</ignore_errors>
@@ -238,38 +238,30 @@
     <return_field/>
     <fields>
         <field>
-          <column_name>DeptID</column_name>
-          <stream_name>DeptID</stream_name>
-        </field>
-        <field>
-          <column_name>DeptName</column_name>
-          <stream_name>DeptName</stream_name>
-        </field>
-        <field>
-          <column_name>NoofItems</column_name>
-          <stream_name>NoofItems</stream_name>
-        </field>
-        <field>
-          <column_name>CreatedDate</column_name>
-          <stream_name>CreatedDate</stream_name>
-        </field>
-        <field>
-          <column_name>Createdby</column_name>
-          <stream_name>Createdby</stream_name>
-        </field>
-        <field>
-          <column_name>KotTitle</column_name>
-          <stream_name>KotTitle</stream_name>
+          <column_name>EmpCode</column_name>
+          <stream_name>EmpCode</stream_name>
         </field>
         <field>
           <column_name>BranchId</column_name>
           <stream_name>DimBranchId</stream_name>
         </field>
+        <field>
+          <column_name>EmpStatus</column_name>
+          <stream_name>EmpStatus</stream_name>
+        </field>
+        <field>
+          <column_name>EmpName</column_name>
+          <stream_name>WaiterName</stream_name>
+        </field>
+        <field>
+          <column_name>EmpType</column_name>
+          <stream_name>Status</stream_name>
+        </field>
     </fields>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>656</xloc>
-      <yloc>96</yloc>
+      <xloc>442</xloc>
+      <yloc>262</yloc>
       <draw>Y</draw>
       </GUI>
     </step>
@@ -294,8 +286,8 @@
     <lazy_conversion_active>N</lazy_conversion_active>
      <cluster_schema/>
  <remotesteps>   <input>   </input>   <output>   </output> </remotesteps>    <GUI>
-      <xloc>208</xloc>
-      <yloc>96</yloc>
+      <xloc>112</xloc>
+      <yloc>256</yloc>
       <draw>Y</draw>
       </GUI>
     </step>

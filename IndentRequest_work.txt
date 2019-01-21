@@ -1,0 +1,206 @@
+
+
+Yesterday Closing Stock	  --> sr_ingredientsintermedhstry_tbl    
+Inward from CCK- Today	--> branchrequest_smry_tbl
+Variance	
+Opening Stock 	--> Incredienthistory 
+2pm Sales 	--> ordersmry
+SOH at 2 pm	
+Avg Sales	
+4 to 8 pm sale	
+Closing Stock 	
+Inward from CCK	
+Variance	
+Opening Stock	
+Avg Sales 	
+Expected Closing Stock	
+Opening stock 	
+Avg Sales of Saturday	
+Avg Sales of Sunday	
+60% Sales Of Tomorrow
+display	
+Suggested Indent 	
+Emer.indent 	
+Emer.urgent
+
+
+USE foodengine_dwh;
+
+DROP TABLE IF EXISTS temp_indentrequest;
+CREATE TABLE IF NOT EXISTS temp_indentrequest(
+ProcessId INT(11)	NOT NULL AUTO_INCREMENT 
+,ProcessDate TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP 
+,RestCode INT(11) NOT NULL DEFAULT 0 COMMENT 'RestId from source branch master table'
+,BranchCode VARCHAR(11) NOT NULL DEFAULT '' COMMENT 'BranchId from source branch master table'
+,IngredientId INT(15) NOT NULL
+,IngredCategoryId int(11) DEFAULT NULL
+,IngredientName VARCHAR(150) DEFAULT NULL
+,Stockcode VARCHAR(15) DEFAULT NULL
+,IndentRequestDate DATE NOT NULL DEFAULT '0000-00-00' 
+,PrevDayClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,ReqDayInwardfromCCK DECIMAL(10,2) DEFAULT '0.00' 
+,ReqDayOpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,ReqDaySales DECIMAL(10,2) DEFAULT '0.00'
+,ReqDayAvgSales DECIMAL(10,2) DEFAULT '0.00'
+,ReqDayClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,Day1InwardfromCCK DECIMAL(10,2) DEFAULT '0.00' 
+,Day1OpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,Day1AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day1ClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,Day2OpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,Day2AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day3AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day4AvgSales DECIMAL(10,2) DEFAULT '0.00' COMMENT '60 % of sales'
+,Day2DisplayQty DECIMAL(10,2) DEFAULT '0.00'
+,Day2SugIndent DECIMAL(10,2) DEFAULT '0.00'
+,Day2EmerIndent DECIMAL(10,2) DEFAULT '0.00'
+,PRIMARY KEY (ProcessId)
+);
+
+
+Steps
+1. List all SKU from master table
+2. Update all required columns 
+
+INSERT INTO temp_indentrequest (IndentRequestDate,RestCode, BranchCode, IngredientId, IngredCategoryId, IngredientName, Stockcode)
+SELECT  curdate(),RestID, BranchID, IngredientID, CategoryID, Descr, Stockcode FROM sr_ingredients_tbl;
+
+-- SET SQL_SAFE_UPDATES = 0;
+--PrevDayClosingStock
+UPDATE temp_indentrequest tmp JOIN sr_ingredientshstry_tbl ing  ON 
+ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID   
+SET tmp.PrevDayClosingStock=ing.ClosingStock WHERE ing.StockDate=tmp.IndentRequestDate - 1;
+
+--ReqDayInwardfromCCK
+UPDATE temp_indentrequest tmp JOIN (select RESTID,BRANCHID, sr_branchrequest_smry_tbl, join  sr_branchrequest_tbl) req  ON 
+req.RestID = tmp.RestCode AND req.BranchID = tmp.BranchCode AND req.IngredientID = tmp.IngredientID   
+SET tmp.ReqDayInwardfromCCK=ing.ApproveQty WHERE req.StockDate=tmp.IndentRequestDate - 1;
+
+--ReqDayOpeningStock
+UPDATE temp_indentrequest tmp JOIN sr_ingredientshstry_tbl ing  ON 
+ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID   
+SET tmp.ReqDayOpeningStock=ing.OpeningStock WHERE ing.StockDate=tmp.IndentRequestDate;
+
+--ReqDaySales
+UPDATE temp_indentrequest tmp JOIN(
+Select a.restid,a.branchid,IngredientID,Date_format(createdate,'%Y-%m-%d') as crdate,sum(b.itemqty) as salesqty
+FROM   sr_orders_tbl a LEFT JOIN sr_order_smry_tbl b ON a.orderid = b.orderid 
+JOIN sr_itemingredients_tbl c ON c.BranchId=a.BranchId and c.RestId=a.RestId and b.ItemId=c.MenuId
+group by restid,branchid,IngredientID) ing 
+ON ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID  
+SET tmp.ReqDaySales = ing.salesqty
+WHERE  ing.crdate=tmp.IndentRequestDate;
+
+--ReqDayClosingStock
+set ReqDayClosingStock = ReqDayOpeningStock - (ReqDaySales);
+
+--Day1InwardfromCCK
+UPDATE temp_indentrequest tmp JOIN (select RESTID,BRANCHID, sr_branchrequest_smry_tbl, join  sr_branchrequest_tbl) req  ON 
+req.RestID = tmp.RestCode AND req.BranchID = tmp.BranchCode AND req.IngredientID = tmp.IngredientID   
+SET tmp.Day1InwardfromCCK=ing.ApproveQty WHERE req.StockDate=tmp.IndentRequestDate+1;
+
+--Day1OpeningStock
+set Day1OpeningStock= ReqDayClosingStock + Day1InwardfromCCK;
+
+--Day1AvgSales Sales
+UPDATE temp_indentrequest tmp JOIN(
+Select a.restid,a.branchid,IngredientID,Date_format(createdate,'%Y-%m-%d') as crdate,sum(b.itemqty) as salesqty
+FROM   sr_orders_tbl a LEFT JOIN sr_order_smry_tbl b ON a.orderid = b.orderid 
+JOIN sr_itemingredients_tbl c ON c.BranchId=a.BranchId and c.RestId=a.RestId and b.ItemId=c.MenuId
+group by restid,branchid,IngredientID) ing 
+ON ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID  
+SET tmp.ReqDaySales = ing.salesqty
+WHERE  ing.crdate=tmp.IndentRequestDate;
+
+--Day1ClosingStock
+SET IF (Day1AvgSales<Day1OpeningStock THEN Day1OpeningStock-Day1AvgSales ELSE 0)
+
+--Day2OpeningStock
+SET Day2OpeningStock=Day1ClosingStock
+
+--Day2AvgSales
+UPDATE temp_indentrequest tmp JOIN(
+Select a.restid,a.branchid,IngredientID,Date_format(createdate,'%Y-%m-%d') as crdate,sum(b.itemqty) as salesqty
+FROM   sr_orders_tbl a LEFT JOIN sr_order_smry_tbl b ON a.orderid = b.orderid 
+JOIN sr_itemingredients_tbl c ON c.BranchId=a.BranchId and c.RestId=a.RestId and b.ItemId=c.MenuId
+group by restid,branchid,IngredientID) ing 
+ON ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID  
+SET tmp.ReqDaySales = ing.salesqty
+WHERE  ing.crdate=tmp.IndentRequestDate;
+
+--Day3AvgSales
+UPDATE temp_indentrequest tmp JOIN(
+Select a.restid,a.branchid,IngredientID,Date_format(createdate,'%Y-%m-%d') as crdate,sum(b.itemqty) as salesqty
+FROM   sr_orders_tbl a LEFT JOIN sr_order_smry_tbl b ON a.orderid = b.orderid 
+JOIN sr_itemingredients_tbl c ON c.BranchId=a.BranchId and c.RestId=a.RestId and b.ItemId=c.MenuId
+group by restid,branchid,IngredientID) ing 
+ON ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID  
+SET tmp.ReqDaySales = ing.salesqty
+WHERE  ing.crdate=tmp.IndentRequestDate;
+
+--Day4AvgSales  (Sales *0.6)
+UPDATE temp_indentrequest tmp JOIN(
+Select a.restid,a.branchid,IngredientID,Date_format(createdate,'%Y-%m-%d') as crdate,sum(b.itemqty) as salesqty
+FROM   sr_orders_tbl a LEFT JOIN sr_order_smry_tbl b ON a.orderid = b.orderid 
+JOIN sr_itemingredients_tbl c ON c.BranchId=a.BranchId and c.RestId=a.RestId and b.ItemId=c.MenuId
+group by restid,branchid,IngredientID) ing 
+ON ing.RestID = tmp.RestCode AND ing.BranchID = tmp.BranchCode AND ing.IngredientID = tmp.IngredientID  
+SET tmp.ReqDaySales = ing.salesqty
+WHERE  ing.crdate=tmp.IndentRequestDate;
+
+--Day2DisplayQty
+set Day2DisplayQty = Day4AvgSales + Day2AvgSales
+
+--Day2SugIndent
+IF Day2DisplayQty > Day2OpeningStock THEN Day2DisplayQty - Day2OpeningStock ELSE 0
+
+--Day2EmerIndent
+IF (Day2OpeningStock =0 THEN Day1AvgSales ELSE 0)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+DROP TABLE IF EXISTS fact_indentrequest;
+CREATE TABLE IF NOT EXISTS fact_indentrequest(
+ProcessId INT(11)	NOT NULL AUTO_INCREMENT 
+,ProcessDate TIMESTAMP DEFAULT '0000-00-00 00:00:00'
+,RestCode INT(11) NOT NULL DEFAULT 0 COMMENT 'RestId from source branch master table'
+,BranchCode VARCHAR(11) NOT NULL DEFAULT '' COMMENT 'BranchId from source branch master table'
+,IngredientId INT(15) NOT NULL
+,IngredCategoryId int(11) DEFAULT NULL
+,IngredientName VARCHAR(150) DEFAULT NULL
+,Stockcode VARCHAR(15) DEFAULT NULL
+,IndentRequestDate DATE NOT NULL DEFAULT '0000-00-00' 
+,PrevDayClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,ReqDayInwardfromCCK DECIMAL(10,2) DEFAULT '0.00' 
+,ReqDayOpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,ReqDaySales DECIMAL(10,2) DEFAULT '0.00'
+,ReqDayAvgSales DECIMAL(10,2) DEFAULT '0.00'
+,ReqDayClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,Day1InwardfromCCK DECIMAL(10,2) DEFAULT '0.00' 
+,Day1OpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,Day1AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day1ClosingStock DECIMAL(10,3) DEFAULT '0.000'
+,Day2OpeningStock DECIMAL(10,3) DEFAULT '0.000'
+,Day2AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day3AvgSales DECIMAL(10,2) DEFAULT '0.00'
+,Day4AvgSales DECIMAL(10,2) DEFAULT '0.00' COMMENT '60 % of sales'
+,Day2DisplayQty DECIMAL(10,2) DEFAULT '0.00'
+,Day2SugIndent DECIMAL(10,2) DEFAULT '0.00'
+,Day2EmerIndent DECIMAL(10,2) DEFAULT '0.00'
+,PRIMARY KEY (ProcessId)
+);
+
+INSERT INTO fact_indentrequest
+SELECT 
+FROM temp_indentrequest
